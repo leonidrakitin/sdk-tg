@@ -23,18 +23,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.logaritex.ai.api.Data.Content.ImageFile;
-import com.logaritex.ai.api.Data.Content.Text;
-import com.logaritex.ai.api.Data.Content.Type;
-import com.logaritex.ai.api.Data.ListRequest.Order;
-import com.logaritex.ai.api.Data.Run.RequiredAction;
-import com.logaritex.ai.api.Data.Run.RequiredAction.SubmitToolOutputs;
-import com.logaritex.ai.api.Data.Run.RunError;
-import com.logaritex.ai.api.Data.Run.Status;
-import com.logaritex.ai.api.Data.RunStep.Error;
-import com.logaritex.ai.api.Data.RunStep.RunStepStatus;
-import com.logaritex.ai.api.Data.RunStep.RunStepType;
-import com.logaritex.ai.api.Data.ToolOutputs.ToolOutput;
 
 /**
  * the {@link Data} defines all domain objects such as request, responses, enum used by the {@link AssistantApi} and
@@ -50,7 +38,7 @@ public class Data {
 	public static class Tool {
 
 		public enum Type {
-			code_interpreter, retrieval, function
+			code_interpreter, file_search, function
 		}
 
 		private Type type;
@@ -69,6 +57,41 @@ public class Data {
 		public void setType(Type type) {
 			this.type = type;
 		}
+	}
+
+	/**
+	 *
+	 * @param file_search
+	 * @param code_interpreter
+	 */
+	public record ToolResources(
+			FileSearch file_search,
+			CodeInterpreter code_interpreter
+	) {
+	}
+
+	/**
+	 *
+	 * @param vector_store_ids
+	 */
+	public record FileSearch(List<String> vector_store_ids) {}
+
+	/**
+	 *
+	 * @param file_ids A list of file IDs attached to this assistant. There can be a maximum of 20 files attached to the
+	 * assistant. Files are ordered by their creation date in ascending order.
+	 */
+	public record CodeInterpreter(List<String> file_ids) {}
+
+	/**
+	 *
+	 * @param file_id
+	 * @param tools
+	 */
+	public record Attachment(
+			String file_id,
+			List<Tool> tools
+	) {
 	}
 
 	/**
@@ -193,8 +216,18 @@ public class Data {
 	 * additional information about the object in a structured format. Keys can be a maximum of 64 characters long and
 	 * values can be a maximum of 512 characters long.
 	 */
-	public record Assistant(String id, String object, Long created_at, String name, String description, String model,
-			String instructions, List<Tool> tools, List<String> file_ids, Map<String, String> metadata) {
+	public record Assistant(
+			String id,
+			String object,
+			Long created_at,
+			String name,
+			String description,
+			String model,
+			String instructions,
+			List<Tool> tools,
+			List<String> file_ids,
+			Map<String, String> metadata
+	) {
 	}
 
 	/**
@@ -206,15 +239,21 @@ public class Data {
 	 * @param instructions The system instructions that the assistant uses. The maximum length is 32768 characters.
 	 * @param tools A list of tool enabled on the assistant. There can be a maximum of 128 tools per assistant. Tools
 	 * can be of types code_interpreter, retrieval, or function.
-	 * @param file_ids A list of file IDs attached to this assistant. There can be a maximum of 20 files attached to the
-	 * assistant. Files are ordered by their creation date in ascending order.
+	 * @param tool_resources todo
 	 * @param metadata Set of 16 key-value pairs that can be attached to an object. This can be useful for storing
 	 * additional information about the object in a structured format. Keys can be a maximum of 64 characters long and
 	 * values can be a maximum of 512 characters long.
 	 */
 	@JsonInclude(Include.NON_NULL)
-	public record AssistantRequestBody(String model, String name, String description, String instructions,
-			List<Tool> tools, List<String> file_ids, Map<String, String> metadata) {
+	public record AssistantRequestBody(
+			String model,
+			String name,
+			String description,
+			String instructions,
+			List<Tool> tools,
+			ToolResources tool_resources,
+			Map<String, String> metadata
+	) {
 
 		/**
 		 * Assistant creation request.
@@ -222,7 +261,7 @@ public class Data {
 		 * @param instructions The system instructions that the assistant uses. The maximum length is 32768 characters.
 		 */
 		public AssistantRequestBody(String model, String instructions) {
-			this(model, null, null, instructions, List.of(), List.of(), Map.of());
+			this(model, null, null, instructions, List.of(), null, null);
 		}
 	}
 
@@ -239,8 +278,16 @@ public class Data {
 	 * @param status file status.
 	 * @param status_details status details.
 	 */
-	public record File(String id, Integer bytes, Long created_at, String filename, String object, String purpose,
-			String status, String status_details) {
+	public record File(
+			String id,
+			Integer bytes,
+			Long created_at,
+			String filename,
+			String object,
+			String purpose,
+			String status,
+			String status_details
+	) {
 
 		/**
 		 * File purpose.
@@ -401,8 +448,19 @@ public class Data {
 	 * additional information about the object in a structured format. Keys can be a maximum of 64 characters long and
 	 * values can be a maximum of 512 characters long.
 	 */
-	public record Message(String id, String object, Long created_at, String thread_id, Role role, List<Content> content,
-			String assistant_id, String run_id, List<String> file_ids, Map<String, String> metadata) {
+	public record Message(
+			String id,
+			String object,
+			Long created_at,
+			String thread_id,
+			Role role,
+			List<Content> content,
+			String assistant_id,
+			String run_id,
+//			List<String> file_ids,
+			List<Attachment> attachments,
+			Map<String, String> metadata
+	) {
 	}
 
 	/**
@@ -472,7 +530,12 @@ public class Data {
 	 * values can be a maximum of 512 characters long.
 	 */
 	@JsonInclude(Include.NON_NULL)
-	public record MessageRequest(Role role, String content, List<String> file_ids, Map<String, String> metadata) {
+	public record MessageRequest(
+			Role role,
+			String content,
+			List<Attachment> attachments,
+			Map<String, String> metadata
+	) {
 
 		/**
 		 * Message creation request.
@@ -591,6 +654,9 @@ public class Data {
 		public RunRequest(String assistant_id) {
 			this(assistant_id, null, null, null, null);
 		}
+//		public RunRequest(String assistant_id, ) {
+//			this(assistant_id, null, null, null, null);
+//		}
 	}
 
 	/**

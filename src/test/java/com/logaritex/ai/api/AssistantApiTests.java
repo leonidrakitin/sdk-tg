@@ -84,7 +84,7 @@ public class AssistantApiTests {
 
 		server.expect(requestTo("/v1/assistants"))
 				.andExpect(method(HttpMethod.POST))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -108,7 +108,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/assistants/{assistant_id}", expectedAssistant.id()))
 				.andExpect(method(HttpMethod.GET))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -133,7 +133,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/assistants/{assistant_id}", modifiedAssistant.id()))
 				.andExpect(method(HttpMethod.POST))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -164,7 +164,7 @@ public class AssistantApiTests {
 		server.expect(requestToUriTemplate("/v1/assistants?order={order}&limit={limit}&before={before}&after={after}",
 				request.order(), request.limit(), request.before(), request.after()))
 				.andExpect(method(HttpMethod.GET))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -207,7 +207,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/assistants/{assistant_id}/files", assistantId))
 				.andExpect(method(HttpMethod.POST))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -234,7 +234,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/assistants/{assistant_id}/files/{file_id}", assistant.id(), file.id()))
 				.andExpect(method(HttpMethod.GET))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -282,7 +282,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/assistants/{assistant_id}/files", assistantId))
 				.andExpect(method(HttpMethod.GET))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -306,7 +306,7 @@ public class AssistantApiTests {
 
 		server.expect(requestTo("/v1/threads"))
 				.andExpect(method(HttpMethod.POST))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -328,7 +328,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/threads/{thread_id}", thread.id()))
 				.andExpect(method(HttpMethod.GET))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -351,7 +351,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/threads/{thread_id}", thread.id()))
 				.andExpect(method(HttpMethod.POST))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -380,7 +380,7 @@ public class AssistantApiTests {
 		server.expect(requestToUriTemplate("/v1/threads?order={order}&limit={limit}&before={before}&after={after}",
 				request.order(), request.limit(), request.before(), request.after()))
 				.andExpect(method(HttpMethod.GET))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -426,7 +426,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/threads/{thread_id}/messages", threadId))
 				.andExpect(method(HttpMethod.POST))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -452,7 +452,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/threads/{thread_id}/messages/{message_id}", threadId, message.id()))
 				.andExpect(method(HttpMethod.GET))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -479,7 +479,7 @@ public class AssistantApiTests {
 
 		server.expect(requestToUriTemplate("/v1/threads/{thread_id}/messages/{message_id}", threadId, message.id()))
 				.andExpect(method(HttpMethod.POST))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))
@@ -516,7 +516,7 @@ public class AssistantApiTests {
 				"/v1/threads/{thread_id}/messages?order={order}&limit={limit}&before={before}&after={after}",
 				threadId, request.order(), request.limit(), request.before(), request.after()))
 				.andExpect(method(HttpMethod.GET))
-				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V1))
+				.andExpect(header(AssistantApi.OPEN_AI_BETA, AssistantApi.ASSISTANTS_V2))
 				.andExpect(header(HttpHeaders.AUTHORIZATION, "Bearer " + TEST_API_KEY))
 				.andExpect(header(HttpHeaders.CONTENT_TYPE,
 						CoreMatchers.containsString(MediaType.APPLICATION_JSON_VALUE)))

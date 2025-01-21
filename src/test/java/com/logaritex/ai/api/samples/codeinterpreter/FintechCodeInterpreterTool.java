@@ -64,7 +64,7 @@ public class FintechCodeInterpreterTool {
 				"",
 				"You help users with finance and stock exchange questions.",
 				List.of(new Data.Tool(Data.Tool.Type.code_interpreter)),
-				List.of(file.id()),
+				null,
 				Map.of()));
 
 		logger.info("3. Create an empty Thread (represents a session between your user and your application).");

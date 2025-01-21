@@ -26,8 +26,8 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+//import reactor.core.publisher.Flux;
+//import reactor.core.publisher.Mono;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.reactive.function.client.WebClient;
+//import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * Single class implementation of the OpenAI Chat Completion API: https://beta.openai.com/docs/api-reference/chat and
@@ -54,7 +54,7 @@ public class ChatCompletionApi {
 	private final Consumer<HttpHeaders> jsonContentHeaders;
 	private final ResponseErrorHandler responseErrorHandler;
 	private final RestClient restClient;
-	private final WebClient webClient;
+//	private final WebClient webClient;
 	private final ObjectMapper objectMapper;
 
 	/**
@@ -103,10 +103,10 @@ public class ChatCompletionApi {
 				.defaultHeaders(jsonContentHeaders)
 				.build();
 
-		this.webClient = WebClient.builder()
-				.baseUrl(baseUrl)
-				.defaultHeaders(jsonContentHeaders)
-				.build();
+//		this.webClient = WebClient.builder()
+//				.baseUrl(baseUrl)
+//				.defaultHeaders(jsonContentHeaders)
+//				.build();
 	}
 
 	/**
@@ -549,23 +549,23 @@ public class ChatCompletionApi {
 	 * @param chatRequest The chat completion request. Must have the stream property set to true.
 	 * @return Returns a {@link Flux} stream from chat completion chunks.
 	 */
-	public Flux<ChatCompletionChunk> chatCompletionStream(ChatCompletionRequest chatRequest) {
-
-		Assert.notNull(chatRequest, "The request body can not be null.");
-		Assert.isTrue(chatRequest.stream(), "Request must set the steam property to true.");
-
-		return this.webClient.post()
-				.uri("/v1/chat/completions")
-				.body(Mono.just(chatRequest), ChatCompletionRequest.class)
-				.retrieve()
-				.bodyToFlux(String.class)
-				// cancels the flux stream after the SSE_DONE is received.
-				.takeUntil(content -> content.contains(SSE_DONE))
-				// filters out the SSE_DONE message.
-				.filter(content -> !content.contains(SSE_DONE))
-				.map(content -> parseJson(content, ChatCompletionChunk.class));
-
-	}
+//	public Flux<ChatCompletionChunk> chatCompletionStream(ChatCompletionRequest chatRequest) {
+//
+//		Assert.notNull(chatRequest, "The request body can not be null.");
+//		Assert.isTrue(chatRequest.stream(), "Request must set the steam property to true.");
+//
+//		return this.webClient.post()
+//				.uri("/v1/chat/completions")
+//				.body(Mono.just(chatRequest), ChatCompletionRequest.class)
+//				.retrieve()
+//				.bodyToFlux(String.class)
+//				// cancels the flux stream after the SSE_DONE is received.
+//				.takeUntil(content -> content.contains(SSE_DONE))
+//				// filters out the SSE_DONE message.
+//				.filter(content -> !content.contains(SSE_DONE))
+//				.map(content -> parseJson(content, ChatCompletionChunk.class));
+//
+//	}
 
 	/**
 	 * Represents an embedding vector returned by embedding endpoint.

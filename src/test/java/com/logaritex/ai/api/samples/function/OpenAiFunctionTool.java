@@ -113,8 +113,9 @@ public class OpenAiFunctionTool {
 											"required": ["city", "country"]
 										}
 										"""))),
-				List.of(), // no files
-				Map.of())); // no metadata
+				null,
+				Map.of()
+		)); // no metadata
 
 		logger.info("2. Create an empty Thread (represents a session between your user and your application).");
 		Data.Thread thread = assistantApi.createThread(new Data.ThreadRequest());

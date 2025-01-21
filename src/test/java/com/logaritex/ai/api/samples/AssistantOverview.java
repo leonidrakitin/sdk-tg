@@ -54,8 +54,9 @@ public class AssistantOverview {
 				"", // description
 				"You are a personal math tutor. Write and run code to answer math questions.", // instructions
 				List.of(new Tool(Tool.Type.code_interpreter)), // tools
-				List.of(), // file ids
-				Map.of())); // metadata
+				new Data.ToolResources(null, new Data.CodeInterpreter(List.of())),
+				null
+		)); // metadata
 
 		// 3. Create an empty Thread.
 		Data.Thread thread = assistantApi.createThread(new ThreadRequest());

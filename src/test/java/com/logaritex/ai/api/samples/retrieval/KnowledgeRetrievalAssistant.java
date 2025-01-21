@@ -72,8 +72,8 @@ public class KnowledgeRetrievalAssistant {
 				"SpringBoot Wizard",
 				"",
 				"You are Spring Boot expert, use the attached docs to answer questions about the SpringBoot.",
-				List.of(new Data.Tool(Data.Tool.Type.retrieval)), // enable the knowledge retrieval tool (aka RAG).
-				List.of(file.id()), // Assign the PDF file to the assistant!!!
+				List.of(new Data.Tool(Data.Tool.Type.file_search)), // enable the knowledge retrieval tool (aka RAG).
+				new Data.ToolResources(new Data.FileSearch(List.of(file.id())), null),
 				Map.of()));
 
 		logger.info("3. Create an empty Thread (represents a session between your user and your application).");

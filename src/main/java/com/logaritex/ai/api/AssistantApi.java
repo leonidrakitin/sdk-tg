@@ -56,7 +56,7 @@ public class AssistantApi {
 	/**
 	 * OpenAI assistant api version.
 	 */
-	public static final String ASSISTANTS_V1 = "assistants=v1";
+	public static final String ASSISTANTS_V2 = "assistants=v2";
 
 	private static final String DEFAULT_BASE_URL = "https://api.openai.com";
 
@@ -89,7 +89,7 @@ public class AssistantApi {
 		this.rest = restClientBuilder
 				.baseUrl(baseUrl)
 				.defaultHeaders(headers -> {
-					headers.set(OPEN_AI_BETA, ASSISTANTS_V1);
+					headers.set(OPEN_AI_BETA, ASSISTANTS_V2);
 					headers.setBearerAuth(openAiToken);
 					headers.setContentType(MediaType.APPLICATION_JSON);
 				})

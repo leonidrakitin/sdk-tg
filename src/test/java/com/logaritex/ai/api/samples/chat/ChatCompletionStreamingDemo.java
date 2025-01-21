@@ -25,7 +25,7 @@ import com.logaritex.ai.api.ChatCompletionApi.ChatCompletionChunk;
 import com.logaritex.ai.api.ChatCompletionApi.ChatCompletionMessage;
 import com.logaritex.ai.api.ChatCompletionApi.ChatCompletionMessage.Role;
 import com.logaritex.ai.api.ChatCompletionApi.ChatCompletionRequest;
-import reactor.core.publisher.Flux;
+//import reactor.core.publisher.Flux;
 
 /**
  *
@@ -47,7 +47,7 @@ public class ChatCompletionStreamingDemo {
 		System.out.println(
 				"Request: " + new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(streamRequest));
 
-		Flux<ChatCompletionChunk> flux = completionApi.chatCompletionStream(streamRequest);
+//		Flux<ChatCompletionChunk> flux = completionApi.chatCompletionStream(streamRequest);
 
 		// flux.subscribe(
 		// content -> {
@@ -62,8 +62,8 @@ public class ChatCompletionStreamingDemo {
 
 		// var b = flux.blockLast();
 
-		List<ChatCompletionChunk> chunks = flux.collectList().block();
-		System.out.println("Chunks: " + chunks);
+//		List<ChatCompletionChunk> chunks = flux.collectList().block();
+//		System.out.println("Chunks: " + chunks);
 
 	}
 
