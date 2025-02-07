@@ -61,6 +61,7 @@ public class AssistantApi {
 	private static final String DEFAULT_BASE_URL = "https://api.openai.com";
 
 	private final RestClient rest;
+
 	private final ResponseErrorHandler responseErrorHandler;
 
 	/**
