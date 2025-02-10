@@ -16,13 +16,12 @@
 
 package com.logaritex.ai.api;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logaritex.ai.api.Data.ResponseError;
-
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
+
+import java.io.IOException;
 
 /**
  * Error handler assigned to all REST call to detect and report API call errors.
@@ -39,7 +38,7 @@ public class OpenAiResponseErrorHandler implements ResponseErrorHandler {
 	@Override
 	public void handleError(ClientHttpResponse response) throws IOException {
 		if (response.getStatusCode().isError()) {
-			throw new RuntimeException(String.format("%s - %s", response.getStatusCode().value(),
+			throw new RuntimeException(String.format("%s - %s", response.getStatusCode().value(), //todo нормальная обработка ошибки и человеческий вывод ошибки клиенту (используя ResponseService)
 					new ObjectMapper().readValue(response.getBody(), ResponseError.class)));
 		}
 	}
