@@ -16,10 +16,6 @@
 
 package com.logaritex.ai.api.samples;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.logaritex.ai.api.AssistantApi;
@@ -34,6 +30,9 @@ import com.logaritex.ai.api.Data.Run;
 import com.logaritex.ai.api.Data.RunRequest;
 import com.logaritex.ai.api.Data.ThreadRequest;
 import com.logaritex.ai.api.Data.Tool;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Java implementation of the Assistant Overview example: https://platform.openai.com/docs/assistants/overview
